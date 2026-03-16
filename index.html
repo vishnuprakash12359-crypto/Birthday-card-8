@@ -1,0 +1,269 @@
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Birthday Surprise</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Noto+Color+Emoji&display=swap" rel="stylesheet">
+
+<style>
+
+body{
+margin:0;
+height:100vh;
+overflow:hidden;
+display:flex;
+justify-content:center;
+align-items:center;
+font-family:'Noto Color Emoji',Arial;
+color:white;
+background:linear-gradient(135deg,#0f2027,#203a43,#2c5364);
+}
+
+/* stars */
+
+.star{
+position:absolute;
+width:2px;
+height:2px;
+background:white;
+animation:twinkle 2s infinite alternate;
+}
+
+@keyframes twinkle{
+from{opacity:0.2}
+to{opacity:1}
+}
+
+/* card */
+
+.card{
+width:360px;
+min-height:380px;
+background:linear-gradient(135deg,#ff9a9e,#fad0c4);
+border-radius:20px;
+box-shadow:0 20px 40px rgba(0,0,0,0.6);
+display:flex;
+flex-direction:column;
+align-items:center;
+justify-content:center;
+text-align:center;
+padding:25px;
+box-sizing:border-box;
+}
+
+/* cake */
+
+.cake{
+font-size:70px;
+}
+
+/* knife */
+
+.knife{
+font-size:50px;
+cursor:pointer;
+animation:knifeMove 2s infinite alternate;
+}
+
+@keyframes knifeMove{
+from{transform:rotate(-10deg)}
+to{transform:rotate(10deg)}
+}
+
+/* gift */
+
+.gift{
+font-size:70px;
+display:none;
+cursor:pointer;
+margin-top:10px;
+}
+
+/* balloons */
+
+.balloon{
+position:absolute;
+bottom:-120px;
+font-size:35px;
+animation:floatUp 10s linear infinite;
+}
+
+@keyframes floatUp{
+0%{transform:translateY(0)}
+100%{transform:translateY(-120vh)}
+}
+
+/* fireworks */
+
+.firework{
+position:absolute;
+width:8px;
+height:8px;
+border-radius:50%;
+background:yellow;
+animation:explode 1s ease-out forwards;
+}
+
+@keyframes explode{
+0%{transform:scale(1);opacity:1}
+100%{transform:scale(6);opacity:0}
+}
+
+/* photo */
+
+.photo{
+width:110px;
+height:110px;
+border-radius:50%;
+object-fit:cover;
+border:4px solid white;
+margin-top:15px;
+display:none;
+}
+
+/* message box */
+
+#message{
+width:100%;
+font-size:18px;
+margin-top:15px;
+line-height:1.5;
+word-wrap:break-word;
+overflow-wrap:break-word;
+text-align:center;
+padding:5px;
+box-sizing:border-box;
+}
+
+</style>
+</head>
+
+<body>
+
+<audio autoplay loop>
+<source src="https://www2.cs.uic.edu/~i101/SoundFiles/HappyBirthday.mid">
+</audio>
+
+<div class="card">
+
+<h2>Cut the Cake 🎂</h2>
+
+<div id="cakeArea">
+
+<div class="cake">🎂</div>
+
+<div class="knife" onclick="cutCake()">🔪</div>
+
+</div>
+
+<div id="giftBox" class="gift" onclick="openGift()">🎁</div>
+
+<img src="https://uploads.onecompiler.io/44geg4vrh/44ghjjvzp/ca506693-1998-4e47-adb5-24c6884c3538.png" class="photo" id="photo">
+
+<div id="message"></div>
+
+</div>
+
+<script>
+
+/* stars */
+
+for(let i=0;i<120;i++){
+let star=document.createElement("div");
+star.className="star";
+star.style.top=Math.random()*100+"vh";
+star.style.left=Math.random()*100+"vw";
+document.body.appendChild(star);
+}
+
+/* cake cutting */
+
+function cutCake(){
+
+document.getElementById("cakeArea").innerHTML="<h3>Cake Cut Successfully! 🎉</h3>";
+
+document.getElementById("giftBox").style.display="block";
+
+}
+
+/* open gift */
+
+function openGift(){
+
+startFireworks();
+startBalloons();
+typeMessage();
+
+document.getElementById("photo").style.display="block";
+
+}
+
+/* fireworks */
+
+function startFireworks(){
+
+setInterval(()=>{
+
+let fire=document.createElement("div");
+fire.className="firework";
+
+fire.style.left=Math.random()*100+"vw";
+fire.style.top=Math.random()*100+"vh";
+
+document.body.appendChild(fire);
+
+setTimeout(()=>fire.remove(),1000);
+
+},300);
+
+}
+
+/* balloons */
+
+function startBalloons(){
+
+setInterval(()=>{
+
+let balloon=document.createElement("div");
+balloon.className="balloon";
+
+let balloons=["🎈","🎈","🎈","🎉"];
+balloon.innerHTML=balloons[Math.floor(Math.random()*balloons.length)];
+
+balloon.style.left=Math.random()*100+"vw";
+
+document.body.appendChild(balloon);
+
+setTimeout(()=>balloon.remove(),10000);
+
+},800);
+
+}
+
+/* typing message */
+
+let text="🎂 Happy Birthday Saro 🥳! Congrats on surviving another year of adulthood. It's a tough game, but you keep levelling up! 🎉";
+
+let i=0;
+
+function typeMessage(){
+
+if(i<text.length){
+
+document.getElementById("message").innerHTML+=text.charAt(i);
+
+i++;
+
+setTimeout(typeMessage,40);
+
+}
+
+}
+
+</script>
+
+</body>
+</html>
+```
